@@ -1,0 +1,72 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+    context-path: /vertical_hole
+  tomcat:
+    max-threads: 200
+    max-swallow-size: -1 # request body size
+  name: vertical_hole
+  address: 0.0.0.0
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIA2AZDTFVMFS2D4FU4
+      secretKey: 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
+    s3:
+      bucket: verticalhole-bucket
+    stack:
+      auto: false
+    region:
+      static: ap-northeast-2
+      auto : false
+
+
+spring:
+  profiles:
+    active: dev
+  datasource:
+    url: jdbc:postgresql://52.79.226.141/vertical_db
+    driver-class-name: org.postgresql.Driver
+    username: movements
+    password: move1234
+  jpa:
+    database: postgresql
+    hibernate:
+      ddl-auto: update # create, create-drop, update, validate, none
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # solve swagger lib error
+  servlet:
+    multipart:
+      max-file-size: 2048MB
+      max-request-size: 2048MB
+  output:
+    ansi:
+      enabled: always
+
+mybatis:
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: true # _ to camelCase transform
+
+logging:
+  file:
+    path: "./logs"
+    name: "vertical"
+  level:
+    org:
+      hibernate:
+        type: trace
+
+
+jwt:
+  access-secret: 1098ade6095e219585bc4679853b631cc8c20ce7a8cbba713e275029f55b971ddc15bfdeb5c9ab666fbb5d9bb9d455599ea0e228f79ea31f84c938f2ca0255a1
